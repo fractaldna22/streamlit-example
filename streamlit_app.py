@@ -36,3 +36,20 @@ with st.echo(code_location='below'):
     st.altair_chart(alt.Chart(pd.DataFrame(data), height=500, width=500)
         .mark_circle(color='#0068c9', opacity=0.5)
         .encode(x='x:Q', y='y:Q'))
+    import IPython
+
+
+ 
+    
+      output=None
+ 
+      with st.container():
+        initial = st.title('Interactive ML Chatbot')
+        ai = aitextgen(model_folder="/content", to_gpu=True, verbose=True, gradient_checkpointing=True)
+        user_input = st.text_area("Please enter your query here", value="")
+        output = ai(user_input)  # invoke chatbot and return response to the corresponding input! 
+        if output is not None:
+            st.markdown(output, unsafe_allow_html=True) # display the returned bot's response in html formatted text!
+    
+    st.scriptrunner.ScriptRunner('Lenin', IPython.InteractiveShell(), Runbot(), st.echo(above), initial_rerun_data=initial, RerunData=user_input)      
+    
